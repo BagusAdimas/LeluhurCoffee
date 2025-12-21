@@ -19,14 +19,21 @@ body {
   min-height: 2000px;
 }
 
+main {
+  color: #000;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.4rem 7%;
-  background-color: rgba(255, 255, 255);
-  border-bottom: 1px solid #0b6623;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid #000;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   position: fixed;
+  font-weight: 1000;
   top: 0;
   left: 0;
   right: 0;
