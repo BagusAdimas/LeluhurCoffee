@@ -1,0 +1,91 @@
+<style>
+  .search-page {
+    padding: 120px 7% 50px; 
+    background-color: #fff; 
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    font-family: "Poppins", sans-serif;
+  }
+
+  .search-wrapper {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+  }
+
+  .search-wrapper h2 {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+  }
+
+  .search-form .input-group {
+    display: flex;
+    border: 2px solid #e1e1e1; 
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+  }
+
+  .search-form .input-group:focus-within {
+    border-color: #b6895b;
+  }
+
+  .search-form input {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background: transparent;
+  }
+
+  .search-form .search-btn {
+    background: #fff;
+    border: none;
+    padding: 0 15px;
+    cursor: pointer;
+    color: #333;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s;
+  }
+
+  .search-form .search-btn:hover {
+    color: #b6895b; 
+  }
+
+  .search-results {
+    margin-top: 40px;
+    color: #777;
+    font-size: 0.9rem;
+  }
+</style>
+
+<section class="search-page">
+  <div class="search-wrapper">
+    <h2>Cari Kopi Favoritmu</h2>
+    <form class="search-form">
+      <div class="input-group">
+        <input
+          type="text"
+          placeholder="Cari menu... (contoh: Latte)"
+          id="search-input"
+        />
+        <button type="submit" class="search-btn">
+          <i data-feather="search"></i>
+        </button>
+      </div>
+    </form>
+
+    <div class="search-results">
+      <p>Masukkan kata kunci untuk memulai pencarian.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  feather.replace();
+</script>
