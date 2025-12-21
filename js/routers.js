@@ -34,7 +34,7 @@ async function redirect() {
     document.body.classList;
   } catch (error) {
     document.getElementById("app").innerHTML =
-      "<h2>404</h2><p>Page not found.</p>";
+      "<div class='error'><h2>404</h2><p>Page not found.</p></div>";
   }
 }
 

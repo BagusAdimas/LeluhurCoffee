@@ -19,6 +19,12 @@ body {
   min-height: 2000px;
 }
 
+.error {
+  margin-top: 100px;
+  text-align: center;
+  background: linear-gradient(135deg, #f00, #0f0, #00f);
+}
+
 main {
   color: #000;
 }
