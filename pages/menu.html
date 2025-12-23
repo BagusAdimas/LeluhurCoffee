@@ -1,35 +1,88 @@
 <style>
-  .menu-coffee {
-    margin-top: 100px;
+  img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50px;
+  }
+
+  .pembatas {
+    height: 100px;
+  }
+
+  body.menu-page {
+    background-image: url(/img/header-bg.jpg);
+    background-repeat: no-repeat;
+  }
+
+  .menu-utamas-coffee {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Jarak antar kolom menu */
+    margin: 5px 5px;
+    color: white;
+  }
+
+  .menu-info div {
+    max-width: 500px;
+  }
+
+  .cold-menu,
+  .hot-menu,
+  .pastry-menu {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 30px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .cold-menu:hover,
+  .hot-menu:hover,
+  .pastry-menu:hover {
+    transform: translateY(-5px);
+    background-color: rgba(255, 255, 255, 0.5);
+    color: black;
   }
 </style>
 
-<section class="menu-coffee">
-  <h2>Our Coffee Menu</h2>
-  <div class="menu-items">
-    <div class="menu-item">
-      <img src="images/espresso.jpg" alt="Espresso" />
-      <h3>Espresso</h3>
-      <p>Rich and bold espresso shot.</p>
-      <span class="price">$2.50</span>
+<div class="pembatas"></div>
+
+<section class="menu-utamas-coffee">
+  <div class="cold-menu">
+    <img src="/img/Unknown.jpeg" alt="cold-menu" class="image" />
+    <div class="menu-info">
+      <h2>Lorem ipsum dolor sit amet.</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis eum et eos
+        corrupti ut magni blanditiis reiciendis repellendus corporis assumenda.
+      </p>
     </div>
-    <div class="menu-item">
-      <img src="images/latte.jpg" alt="Caffe Latte" />
-      <h3>Caffe Latte</h3>
-      <p>Smooth blend of espresso and steamed milk.</p>
-      <span class="price">$3.50</span>
+  </div>
+  <div class="hot-menu">
+    <div class="menu-info">
+      <h2>Lorem ipsum dolor sit amet.</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis eum et eos
+        corrupti ut magni blanditiis reiciendis repellendus corporis assumenda.
+      </p>
     </div>
-    <div class="menu-item">
-      <img src="images/cappuccino.jpg" alt="Cappuccino" />
-      <h3>Cappuccino</h3>
-      <p>Espresso with steamed milk and foam.</p>
-      <span class="price">$3.00</span>
-    </div>
-    <div class="menu-item">
-      <img src="images/americano.jpg" alt="Americano" />
-      <h3>Americano</h3>
-      <p>Espresso diluted with hot water.</p>
-      <span class="price">$2.75</span>
+    <img src="/img/hot-beverages.jpg" alt="hot-menu" class="image" />
+  </div>
+  <div class="pastry-menu">
+    <img
+      src="/img/Gooey Homemade Cinnamon Rolls – Soft, Fluffy & Irresistible.jpg"
+      alt="pastry-menu"
+      class="image"
+    />
+    <div class="menu-info">
+      <h2>Lorem ipsum dolor sit amet.</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis eum et eos
+        corrupti ut magni blanditiis reiciendis repellendus corporis assumenda.
+      </p>
     </div>
   </div>
 </section>
