@@ -1,0 +1,134 @@
+<style>
+  .image-1,
+  .image-2,
+  .image-3 {
+    width: 600px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 50px;
+  }
+
+  .about-description {
+    max-width: 800px;
+    margin: 100px auto;
+    margin-top: 150px;
+    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    transition: transform 0.3s ease;
+    color: white;
+    font-family: "Poppins", sans-serif;
+  }
+
+  .about-description:hover {
+    transform: translateY(-5px);
+    background-color: rgba(255, 255, 255, 0.5);
+    color: black;
+  }
+
+  .about-description h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+  }
+
+  .about-description p {
+    text-align: justify;
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .tentang-kami {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 5px 5px;
+    color: white;
+  }
+
+  .our-space-1,
+  .our-space-2,
+  .our-space-3 {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.3);
+    gap: 40px;
+    padding: 30px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .our-space-1:hover,
+  .our-space-2:hover,
+  .our-space-3:hover {
+    transform: translateY(-5px);
+    background-color: rgba(255, 255, 255, 0.5);
+    color: black;
+  }
+
+  body.about-page {
+    background-image: url(../img/header-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    margin: 0;
+    padding: 1.4rem 7%;
+    display: block;
+  }
+</style>
+
+<section class="tentang-kami">
+  <div class="about-description">
+    <h1>About Us</h1>
+    <p>
+      LELUHUR COFFEE adalah kedai kopi yang berdedikasi untuk menyajikan kopi
+      berkualitas tinggi dengan cita rasa autentik. Kami percaya bahwa setiap
+      cangkir kopi adalah pengalaman yang unik, dan kami berkomitmen untuk
+      memberikan yang terbaik kepada pelanggan kami.
+    </p>
+    <p>
+      Kami hanya menggunakan biji kopi pilihan yang diproses dengan teliti,
+      memastikan setiap tegukan menghadirkan aroma dan rasa yang kaya. Selain
+      itu, kami juga menawarkan berbagai pilihan menu kopi dan makanan
+      pendamping yang lezat.
+    </p>
+  </div>
+
+  <div class="our-space-1">
+    <div class="our-space-info-1">
+      <h1>Our Space</h1>
+      <p>
+        Nikmati suasana nyaman dan hangat di LELUHUR COFFEE, tempat di mana Anda
+        bisa menikmati kopi berkualitas tinggi dalam suasana yang menyenangkan.
+      </p>
+    </div>
+    <img src="../img/Our Space.jpeg" alt="Our Coffee Shop" class="image-1" />
+  </div>
+
+  <div class="our-space-2">
+    <img src="../img/Our Space 4.jpeg" alt="Our Space" class="image-2" />
+    <div class="our-space-info-2">
+      <h1>Our Space</h1>
+      <p>
+        Nikmati suasana nyaman dan hangat di LELUHUR COFFEE, tempat di mana Anda
+        bisa menikmati kopi berkualitas tinggi dalam suasana yang menyenangkan.
+      </p>
+    </div>
+  </div>
+
+  <div class="our-space-3">
+    <div class="our-space-info-3">
+      <h1>Our Space</h1>
+      <p>
+        Nikmati suasana nyaman dan hangat di LELUHUR COFFEE, tempat di mana Anda
+        bisa menikmati kopi berkualitas tinggi dalam suasana yang menyenangkan.
+      </p>
+    </div>
+    <img src="../img/Our Space 5.jpeg" alt="Our Space" class="image-3" />
+  </div>
+</section>
