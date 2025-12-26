@@ -1,7 +1,7 @@
 <style>
   img {
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     object-fit: cover;
     border-radius: 50px;
   }
@@ -19,6 +19,7 @@
     justify-content: flex-end;
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     position: relative;
     padding: 1.4rem 7%;
   }
@@ -40,6 +41,9 @@
   .pastry-menu {
     display: flex;
     justify-content: space-between;
+    position: relative; /* Pastikan elemen memiliki posisi */
+    z-index: 10; /* Angkat ke lapisan atas agar tidak terhalang background */
+    cursor: pointer;
     background-color: rgba(255, 255, 255, 0.3);
     padding: 30px;
     gap: 40px;
@@ -63,19 +67,23 @@
   <div class="cold-menu">
     <img src="/img/Unknown.jpeg" alt="cold-menu" class="image" />
     <div class="menu-info">
-      <h2>Lorem ipsum dolor sit amet.</h2>
+      <h2>Cold Menu</h2>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis eum et eos
-        corrupti ut magni blanditiis reiciendis repellendus corporis assumenda.
+        Nikmatilah berbagai pilihan minuman dingin kami yang menyegarkan dan
+        memuaskan dahaga Anda. Denfgan bahan-bahan berkualitas tinggi dan cita
+        rasa yang unik, setiap tegukan akan membawa Anda pada pengalaman kopi
+        yang tak terlupakan.
       </p>
     </div>
   </div>
   <div class="hot-menu">
     <div class="menu-info">
-      <h2>Lorem ipsum dolor sit amet.</h2>
+      <h2>Hot Menu</h2>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis eum et eos
-        corrupti ut magni blanditiis reiciendis repellendus corporis assumenda.
+        Nikmatilah berbagai pilihan minuman hangat kami yang menghangatkan tubuh
+        dan memberikan kenyamanan. Dengan bahan-bahan berkualitas tinggi dan
+        cita rasa yang khas, setiap tegukan akan membawa Anda pada pengalaman
+        kopi yang hangat dan menyenangkan.
       </p>
     </div>
     <img src="/img/hot-beverages.jpg" alt="hot-menu" class="image" />
@@ -87,11 +95,42 @@
       class="image"
     />
     <div class="menu-info">
-      <h2>Lorem ipsum dolor sit amet.</h2>
+      <h2>Pastry Menu</h2>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis eum et eos
-        corrupti ut magni blanditiis reiciendis repellendus corporis assumenda.
+        Nikmatilah berbagai pilihan kue-kue lezat kami yang lembut dan menggugah
+        selera. Dengan bahan-bahan berkualitas tinggi dan resep tradisional.
       </p>
     </div>
   </div>
 </section>
+
+<script>
+  // Letakkan script ini di halaman menu.html Anda
+  window.addEventListener("DOMContentLoaded", () => {
+    // 1. Ambil kata kunci dari URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchQuery = urlParams.get("search");
+
+    if (searchQuery) {
+      const keyword = searchQuery.toLowerCase();
+
+      // 2. Cari semua elemen produk/minuman (sesuaikan class-nya)
+      const menuItems = document.querySelectorAll(".menu-card");
+
+      menuItems.forEach((item) => {
+        const itemName = item.textContent.toLowerCase();
+
+        // 3. Jika nama menu mengandung kata kunci, tampilkan. Jika tidak, sembunyikan.
+        if (itemName.includes(keyword)) {
+          item.style.display = "block";
+        } else {
+          item.style.display = "none";
+        }
+      });
+    }
+  });
+</script>
+
+<script>
+  feather.replace();
+</script>

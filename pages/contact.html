@@ -1,14 +1,115 @@
-<section class="contact">
-  <div class="instagram">
-    <h2>Instagram</h2>
-    <p>Follow us on Instagram for updates and promotions!</p>
+<style>
+  .contact-page {
+    padding: 120px 7% 50px;
+    background-color: transparent;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    font-family: "Poppins", sans-serif;
+    color: white;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 20px 40px;
+    gap: 20px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    margin-bottom: 20px;
+  }
+
+  .contact-item i {
+    width: 32px;
+    height: 32px;
+    stroke: white;
+    stroke-width: 2;
+    flex-shrink: 0;
+  }
+
+  .contact-item:hover {
+    transform: translateY(-5px);
+    background-color: rgba(255, 255, 255, 0.8);
+    color: black;
+  }
+
+  .contact-item:hover i {
+    stroke: black;
+  }
+
+  .contact-text h2 {
+    margin: 0;
+    font-size: 1.3rem;
+  }
+
+  .contact-text p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  .contact-page h2 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+  }
+
+  .contact-page p {
+    font-size: 1rem;
+  }
+
+  .instagram:hover,
+  .email:hover,
+  .TikTok:hover {
+    transform: translateY(-5px);
+    background-color: rgba(255, 255, 255, 0.5);
+    color: black;
+  }
+
+  body {
+    background-image: url(../img/header-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    margin: 0;
+    padding: 1.4rem 7%;
+    display: block;
+  }
+</style>
+
+<section class="contact-page">
+  <div class="contact-item instagram">
+    <i data-feather="instagram"></i>
+    <div class="contact-text">
+      <h2>Instagram</h2>
+      <p>@leluhurcoffee</p>
+      <p>Follow us on Instagram for updates and promotions!</p>
+    </div>
   </div>
-  <div class="email">
-    <h2>Email</h2>
-    <p>Contact us via email for any inquiries or feedback.</p>
+
+  <div class="contact-item email">
+    <i data-feather="mail"></i>
+    <div class="contact-text">
+      <h2>Email</h2>
+      <p>leluhurcoffee@gmail.com</p>
+      <p>Contact us via email for any inquiries or feedback.</p>
+    </div>
   </div>
-  <div class="TikTok">
-    <h2>TikTok</h2>
-    <p>Follow us on TikTok for updates and promotions!</p>
+
+  <div class="contact-item TikTok">
+    <i data-feather="video"></i>
+    <div class="contact-text">
+      <h2>TikTok</h2>
+      <p>@leluhurcoffee</p>
+      <p>Check out our TikTok for fun coffee content!</p>
+    </div>
   </div>
 </section>
+
+<script>
+  feather.replace();
+</script>
