@@ -1,7 +1,7 @@
 <style>
   .search-page {
-    padding: 120px 7% 50px; 
-    background-color: #fff; 
+    padding: 120px 7% 50px;
+    background-color: transparent;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -15,7 +15,7 @@
   }
 
   .search-wrapper h2 {
-    color: #333;
+    color: white;
     font-size: 2rem;
     margin-bottom: 1.5rem;
     font-weight: 700;
@@ -23,7 +23,7 @@
 
   .search-form .input-group {
     display: flex;
-    border: 2px solid #e1e1e1; 
+    border: 2px solid #e1e1e1;
     border-radius: 8px;
     overflow: hidden;
     transition: border-color 0.3s ease;
@@ -54,13 +54,25 @@
   }
 
   .search-form .search-btn:hover {
-    color: #b6895b; 
+    color: #b6895b;
   }
 
   .search-results {
-    margin-top: 40px;
+    margin-top: 20px;
     color: #777;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
+  }
+
+  body.search-page {
+    background-image: url(../img/header-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    margin: 0;
+    padding: 1.4rem 7%;
+    display: block;
   }
 </style>
 
