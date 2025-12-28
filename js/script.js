@@ -34,6 +34,42 @@ const menuData = {
       price: "Rp 20.000",
       desc: "Espresso dengan es batu dan air.",
     },
+    {
+      name: "Iced Nutella Latte",
+      price: "Rp 35.000",
+      desc: "Espresso dengan susu dingin dan nutella.",
+    },
+    {
+      name: "Iced Matcha Latte",
+      price: "Rp 30.000",
+      desc: "Bubuk matcha dengan susu dingin.",
+    },
+    {
+      name: "Iced Mochaccino",
+      price: "Rp 38.000",
+      desc: "Espresso dengan susu dingin dan cokelat.",
+    },
+    {
+      name: "Iced Caramel Macchiato",
+      price: "Rp 35.000",
+      desc: "Espresso dengan susu dingin dan karamel.",
+    },
+    {
+      name: "Iced Brown Sugar Latte",
+      price: "Rp 28.000",
+      desc: "Espresso dengan susu dingin dan brown sugar.",
+    },
+    {
+      name: "Sea Salt Cloud Chocolate",
+      price: "Rp 33.000",
+      desc: "Espresso dengan krim cloud dan cokelat.",
+    },
+    {
+      name: "Iced Cappuccino",
+      price: "Rp 35.000",
+      desc: "Espresso dengan susu dingin dan busa susu.",
+    },
+    
   ],
   hot: [
     {
