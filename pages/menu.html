@@ -1,39 +1,31 @@
 <style>
-  img {
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 50px;
-  }
-
-  .pembatas {
-    height: 100px;
-  }
-
   body.menu-page {
-    background-image: url(/img/header-bg.jpg);
+    padding-top: 100px;
+    background-image: url(../img/header-bg.jpg);
     background-repeat: no-repeat;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    position: relative;
+    min-height: 100vh;
+    margin: 0;
     padding: 1.4rem 7%;
+    display: block;
+  }
+
+  .menu-img {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .menu-container {
+    padding: 2rem 7%;
+    min-height: 100vh;
+    margin-top: 60px;
   }
 
   .menu-utamas-coffee {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    margin: 5px 5px;
-    color: white;
-  }
-
-  .menu-info div {
-    max-width: 500px;
+    gap: 25px;
   }
 
   .cold-menu,
@@ -41,96 +33,128 @@
   .pastry-menu {
     display: flex;
     justify-content: space-between;
-    position: relative; /* Pastikan elemen memiliki posisi */
-    z-index: 10; /* Angkat ke lapisan atas agar tidak terhalang background */
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    border-radius: 30px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.3);
-    padding: 30px;
-    gap: 40px;
-    border-radius: 50px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    transition: 0.3s;
   }
 
   .cold-menu:hover,
   .hot-menu:hover,
   .pastry-menu:hover {
-    transform: translateY(-5px);
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.8);
     color: black;
+    transform: scale(1.02);
+  }
+
+  .menu-info h2 {
+    color: #b6895b;
+    margin-bottom: 10px;
+  }
+
+  .menu-info p {
+    color: #eee;
+    font-size: 0.9rem;
+    max-width: 500px;
+  }
+
+  .cold-menu:hover p,
+  .hot-menu:hover p,
+  .pastry-menu:hover p {
+    color: #333;
+  }
+
+  img.menu-img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
+  .back-btn {
+    font-size: 1rem;
+    margin-top: 30px;
+    color: white;
+    background-color: var(--primary);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+
+  .back-btn:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: black;
+    transform: scale(1.02);
+  }
+
+  .menu-item-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    backdrop-filter: blur(10px); 
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .menu-item-card:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #333;
+    transform: scale(
+      1.05
+    ); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .menu-item-card:hover h3 {
+    color: #b6895b;
+  }
+
+  .menu-item-card:hover p {
+    color: #555;
   }
 </style>
 
-<div class="pembatas"></div>
-
-<section class="menu-utamas-coffee">
-  <div class="cold-menu">
-    <img src="/img/Unknown.jpeg" alt="cold-menu" class="image" />
-    <div class="menu-info">
-      <h2>Cold Menu</h2>
-      <p>
-        Nikmatilah berbagai pilihan minuman dingin kami yang menyegarkan dan
-        memuaskan dahaga Anda. Denfgan bahan-bahan berkualitas tinggi dan cita
-        rasa yang unik, setiap tegukan akan membawa Anda pada pengalaman kopi
-        yang tak terlupakan.
-      </p>
+<div class="menu-container">
+  <section class="menu-utamas-coffee" id="main-menu-selection">
+    <div class="cold-menu" onclick="showDetail('cold')">
+      <img src="img/Unknown.jpeg" class="menu-img" alt="cold" />
+      <div class="menu-info">
+        <h2>Cold Menu</h2>
+        <p>Nikmati kesegaran kopi dingin pilihan kami yang memuaskan dahaga.</p>
+      </div>
     </div>
-  </div>
-  <div class="hot-menu">
-    <div class="menu-info">
-      <h2>Hot Menu</h2>
-      <p>
-        Nikmatilah berbagai pilihan minuman hangat kami yang menghangatkan tubuh
-        dan memberikan kenyamanan. Dengan bahan-bahan berkualitas tinggi dan
-        cita rasa yang khas, setiap tegukan akan membawa Anda pada pengalaman
-        kopi yang hangat dan menyenangkan.
-      </p>
+
+    <div class="hot-menu" onclick="showDetail('hot')">
+      <div class="menu-info">
+        <h2>Hot Menu</h2>
+        <p>Kehangatan kopi autentik dengan aroma yang menenangkan jiwa.</p>
+      </div>
+      <img src="img/hot-beverages.jpg" class="menu-img" alt="hot" />
     </div>
-    <img src="/img/hot-beverages.jpg" alt="hot-menu" class="image" />
-  </div>
-  <div class="pastry-menu">
-    <img
-      src="/img/Gooey Homemade Cinnamon Rolls – Soft, Fluffy & Irresistible.jpg"
-      alt="pastry-menu"
-      class="image"
-    />
-    <div class="menu-info">
-      <h2>Pastry Menu</h2>
-      <p>
-        Nikmatilah berbagai pilihan kue-kue lezat kami yang lembut dan menggugah
-        selera. Dengan bahan-bahan berkualitas tinggi dan resep tradisional.
-      </p>
+
+    <div class="pastry-menu" onclick="showDetail('pastry')">
+      <img
+        src="img/Gooey Homemade Cinnamon Rolls – Soft, Fluffy & Irresistible.jpg"
+        class="menu-img"
+        alt="pastry"
+      />
+      <div class="menu-info">
+        <h2>Pastry Menu</h2>
+        <p>Kue lezat dan lembut sebagai teman sempurna cangkir kopi Anda.</p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<script>
-  // Letakkan script ini di halaman menu.html Anda
-  window.addEventListener("DOMContentLoaded", () => {
-    // 1. Ambil kata kunci dari URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchQuery = urlParams.get("search");
-
-    if (searchQuery) {
-      const keyword = searchQuery.toLowerCase();
-
-      // 2. Cari semua elemen produk/minuman (sesuaikan class-nya)
-      const menuItems = document.querySelectorAll(".menu-card");
-
-      menuItems.forEach((item) => {
-        const itemName = item.textContent.toLowerCase();
-
-        // 3. Jika nama menu mengandung kata kunci, tampilkan. Jika tidak, sembunyikan.
-        if (itemName.includes(keyword)) {
-          item.style.display = "block";
-        } else {
-          item.style.display = "none";
-        }
-      });
-    }
-  });
-</script>
-
-<script>
-  feather.replace();
-</script>
+  <section id="menu-detail-container" style="display: none">
+    <button class="back-btn" onclick="hideDetail()">← Kembali ke Menu</button>
+    <h2 id="detail-title" style="color: white; margin-bottom: 20px"></h2>
+    <div id="detail-list" class="menu-grid"></div>
+  </section>
+</div>
