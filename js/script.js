@@ -69,7 +69,6 @@ const menuData = {
       price: "Rp 35.000",
       desc: "Espresso dengan susu dingin dan busa susu.",
     },
-    
   ],
   hot: [
     {
@@ -87,6 +86,41 @@ const menuData = {
       price: "Rp 25.000",
       desc: "Espresso dengan steamed milk yang lembut.",
     },
+    {
+      name: "Espresso Shot",
+      price: "Rp 15.000",
+      desc: "Espresso murni dengan rasa kuat dan pekat.",
+    },
+    {
+      name: "Hot Chocolate",
+      price: "Rp 28.000",
+      desc: "Espresso dengan busa susu tebal dan cokelat bubuk.",
+    },
+    {
+      name: "Hot Mocha",
+      price: "Rp 32.000",
+      desc: "Espresso dengan busa susu tebal dan cokelat bubuk.",
+    },
+    {
+      name: "Hot Caramel Macchiato",
+      price: "Rp 34.000",
+      desc: "Espresso dengan busa susu tebal dan caramel sauce.",
+    },
+    {
+      name: "Flat White",
+      price: "Rp 25.000",
+      desc: "Espresso dengan susu steam tanpa foam.",
+    },
+    {
+      name: "Hot Matcha Latte",
+      price: "Rp 34.000",
+      desc: "Bubuk matcha dengan susu panas.",
+    },
+    {
+      name: "Hot Tea",
+      price: "Rp 18.000",
+      desc: "Teh panas dengan rasa yang lembut dan hangat.",
+    },
   ],
   pastry: [
     {
@@ -103,6 +137,41 @@ const menuData = {
       name: "Choco Muffin",
       price: "Rp 15.000",
       desc: "Muffin cokelat panggang dengan choco chips.",
+    },
+    {
+      name: "Almond Croissant",
+      price: "Rp 25.000",
+      desc: "Pastry renyah mentega khas Perancis dengan almond.",
+    },
+    {
+      name: "Blueberry Muffin",
+      price: "Rp 15.000",
+      desc: "Muffin blueberry panggang dengan blueberry chips.",
+    },
+    {
+      name: "Choco Danish",
+      price: "Rp 23.000",
+      desc: "Pastry cokelat dengan krim dan choco chips.",
+    },
+    {
+      name: "Tiramisu Cake",
+      price: "Rp 38.000",
+      desc: "Layer cake dengan rasa kopi dan krim mascarpone.",
+    },
+    {
+      name: "Cheesecake",
+      price: "Rp 35.000",
+      desc: "Kue keju lembut dengan crust renyah.",
+    },
+    {
+      name: "Chocolate Fudge Cake",
+      price: "Rp 38.000",
+      desc: "Kue cokelat lembut dengan lapisan fudge kaya rasa.",
+    },
+    {
+      name: "Banana Bread",
+      price: "Rp 30.000",
+      desc: "Roti pisang lembut dengan rasa manis.",
     },
   ],
 };
