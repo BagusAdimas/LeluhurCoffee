@@ -24,6 +24,14 @@ async function redirect() {
     case "/menu":
       document.body.classList.add("menu-page");
       break;
+    case "/contact":
+      document.body.classList.add("contact-page");
+      break;
+    case "/cart":
+      document.body.classList.add("cart-page");
+      break;
+    default:
+      document.body.classList.add("home-page");
   }
 
   try {
