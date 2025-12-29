@@ -40,3 +40,19 @@ async function redirect() {
 
 window.addEventListener("hashchange", redirect);
 window.addEventListener("DOMContentLoaded", redirect);
+
+// Di dalam routers.js, tambahkan feather.replace() setelah konten di-inject
+try {
+  const response = await fetch(route);
+  if (!response.ok) throw new Error();
+  const html = await response.text();
+  document.getElementById("app").innerHTML = html;
+
+  // PENTING: Panggil kembali agar icon muncul di halaman baru
+  if (window.feather) {
+    feather.replace();
+  }
+} catch (error) {
+  document.getElementById("app").innerHTML =
+    "<div class='error'><h2>404</h2><p>Page not found.</p></div>";
+}

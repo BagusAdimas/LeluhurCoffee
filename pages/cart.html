@@ -1,0 +1,220 @@
+<style>
+  /* Container utama cart mengikuti gaya menu.html */
+  .cart-page-container {
+    padding: 120px 7% 50px;
+    min-height: 100vh;
+    font-family: "Poppins", sans-serif;
+    color: white;
+  }
+
+  /* Header Section (Bagian Atas) */
+  .cart-header-card {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 30px;
+    border-radius: 30px 30px 5px 5px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    margin-bottom: 5px;
+  }
+
+  .cart-header-card img {
+    width: 200px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
+  .cart-header-card h2 {
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  /* Main Cart Section (Bagian Bawah) */
+  .cart-main-content {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 30px;
+    border-radius: 5px 5px 30px 30px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  /* Item List */
+  .cart-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .cart-item {
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 15px 25px;
+    border-radius: 20px;
+    gap: 20px;
+  }
+
+  .cart-item img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .item-info {
+    flex-grow: 1;
+  }
+
+  .item-info h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  .item-info p {
+    font-size: 0.9rem;
+    color: #ccc;
+  }
+
+  .item-pricing {
+    text-align: right;
+  }
+
+  .qty-badge {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 12px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+    display: inline-block;
+  }
+
+  .subtotal-box {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+  }
+
+  /* Side Summary */
+  .cart-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .promo-banner {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .promo-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .delete-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    color: white;
+  }
+
+  .btn-checkout {
+    background-color: var(--primary);
+    color: white;
+    padding: 18px;
+    border-radius: 15px;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+
+  .btn-checkout:hover {
+    background-color: rgb(140, 95, 68);
+    transform: translateY(-3px);
+  }
+
+  /* Background Page khusus cart */
+  body.cart-page {
+    background-image: url("../img/header-bg.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  @media (max-width: 768px) {
+    .cart-main-content {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="cart-page-container">
+  <div class="cart-header-card">
+    <img src="/img/Unknown.jpeg" alt="Featured Coffee" />
+    <h2>Keranjang Belanja</h2>
+  </div>
+
+  <div class="cart-main-content">
+    <div class="cart-items-list">
+      <div class="cart-item">
+        <img src="/img/Unknown.jpeg" alt="Item" />
+        <div class="item-info">
+          <h3>Iced Caramel Macchiato</h3>
+          <p>Rp 45.000</p>
+        </div>
+        <div class="item-pricing">
+          <span class="qty-badge">2</span>
+          <div class="subtotal-box">Rp 90.000</div>
+        </div>
+      </div>
+
+      <div class="cart-item">
+        <img src="/img/hot-beverages.jpg" alt="Item" />
+        <div class="item-info">
+          <h3>Cappuccino Hot</h3>
+          <p>Rp 30.000</p>
+        </div>
+        <div class="item-pricing">
+          <span class="qty-badge">1</span>
+          <div class="subtotal-box">Rp 30.000</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-summary">
+      <div class="promo-banner">
+        <img src="/img/hot-beverages.jpg" alt="Promo" />
+        <div class="delete-icon">
+          <i data-feather="trash-2"></i>
+        </div>
+      </div>
+      <div class="btn-checkout">Lanjutkan Pembayaran</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  feather.replace();
+</script>
