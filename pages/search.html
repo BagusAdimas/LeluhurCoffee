@@ -77,30 +77,23 @@
   }
 </style>
 
-<section class="search-page">
-  <div class="search-wrapper">
-    <h2>Cari Kopi Favoritmu</h2>
-    <form class="search-form" action="menu.html" method="GET">
-      <div class="input-group">
-        <input
-          type="text"
-          name="search"
-          placeholder="Cari menu... (contoh: Latte)"
-          id="search-input"
-          required
-        />
-        <button type="submit" class="search-btn">
-          <i data-feather="search"></i>
-        </button>
-      </div>
-    </form>
-
-    <div class="search-results">
-      <p>Masukkan kata kunci untuk memulai pencarian.</p>
-    </div>
+<div class="search-form">
+  <div class="input-group">
+    <input type="text" id="search-input" placeholder="Cari menu..." />
+    <button type="button" class="search-btn" onclick="handleSearch()">
+      <i data-feather="search"></i>
+    </button>
   </div>
-</section>
+</div>
 
 <script>
-  feather.replace();
+  function handleSearch() {
+    const query = document.getElementById("search-input").value;
+    if (query) {
+      // Mengarahkan ke route menu dengan hash (agar ditangkap routers.js)
+      window.location.hash = `#/menu?search=${encodeURIComponent(query)}`;
+    }
+  }
+  // Aktifkan icon feather jika diperlukan
+  if (typeof feather !== "undefined") feather.replace();
 </script>
