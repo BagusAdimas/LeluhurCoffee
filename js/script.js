@@ -16,18 +16,20 @@ document.addEventListener("click", function (e) {
   }
 });
 
-// Data Menu Global
+// Database menu
 const menuData = {
   cold: [
     {
       name: "Iced Latte",
       price: "Rp 25.000",
       desc: "Espresso dengan susu dingin segar.",
+      img: "../img/Iced Latte.jpeg",
     },
     {
       name: "Cold Brew",
       price: "Rp 30.000",
       desc: "Kopi ekstraksi dingin selama 12 jam.",
+      img: "../img/Cold Brew.jpeg",
     },
     {
       name: "Iced Americano",
@@ -72,7 +74,7 @@ const menuData = {
   ],
   hot: [
     {
-      name: "Cappuccino",
+      name: "Hot Cappuccino",
       price: "Rp 22.000",
       desc: "Espresso dengan busa susu tebal dan cokelat bubuk.",
     },
@@ -82,7 +84,7 @@ const menuData = {
       desc: "Espresso klasik dengan air panas.",
     },
     {
-      name: "Cafe Latte",
+      name: "Hot Latte",
       price: "Rp 25.000",
       desc: "Espresso dengan steamed milk yang lembut.",
     },
@@ -176,43 +178,228 @@ const menuData = {
   ],
 };
 
-// Fungsi untuk menampilkan detail
-function showDetail(category) {
-  const mainSelection = document.getElementById("main-menu-selection");
-  const detailContainer = document.getElementById("menu-detail-container");
-  const detailTitle = document.getElementById("detail-title");
+// Fungsi untuk menampilkan detail kategori atau hasil pencarian
+window.showDetail = function (category, query = null) {
+  const mainSection = document.getElementById("main-menu-selection");
+  const detailSection = document.getElementById("menu-detail-container");
   const detailList = document.getElementById("detail-list");
+  const detailTitle = document.getElementById("detail-title");
 
-  if (!mainSelection || !detailContainer) return;
+  if (!mainSection || !detailSection || !detailList || !detailTitle) return;
 
-  detailTitle.innerText = category.toUpperCase() + " MENU";
-  detailList.innerHTML = "";
+  mainSection.style.display = "none";
+  detailSection.style.display = "block";
 
-  menuData[category].forEach((item) => {
-    detailList.innerHTML += `
-      <div class="menu-item-card">
-        <h3>${item.name}</h3>
-        <p>${item.desc}</p>
-        <div style="font-weight:bold; margin-top:10px; color: #b6895b;">${item.price}</div>
+  let items = menuData[category] || [];
+
+  if (query) {
+    items = items.filter((item) =>
+      item.name.toLowerCase().includes(query.toLowerCase())
+    );
+    detailTitle.innerText = `HASIL PENCARIAN: "${query}"`;
+  } else {
+    detailTitle.innerText = category.toUpperCase() + " MENU";
+  }
+
+  if (items.length === 0) {
+    detailList.innerHTML = `
+        <div class="no-results">
+          <h3>Tidak Ada Hasil</h3>
+          <p>Menu "${query}" tidak ditemukan. Silakan coba kata kunci lain.</p>
+        </div>
+      `;
+    return;
+  }
+
+  detailList.innerHTML = items
+    .map(
+      (item) => `
+      <div class="cold-menu" style="margin-bottom: 25px; cursor: default;">
+        <img src="${item.img || "../img/header-bg.jpg"}" class="menu-img" 
+             onerror="this.src='../img/header-bg.jpg'" />
+        <div class="menu-info">
+          <h2>${item.name}</h2>
+          <p>${item.desc || "Nikmati kelezatan menu pilihan kami."}</p>
+          <p class="price" style="margin-top: 10px; font-size: 1.2rem;">${
+            item.price
+          }</p>
+        </div>
+      </div>
+    `
+    )
+    .join("");
+
+  window.scrollTo(0, 0);
+};
+
+window.hideDetail = function () {
+  const mainSection = document.getElementById("main-menu-selection");
+  const detailSection = document.getElementById("menu-detail-container");
+
+  if (mainSection && detailSection) {
+    detailSection.style.display = "none";
+    mainSection.style.display = "flex";
+    window.history.replaceState({}, document.title, "#/menu");
+    window.scrollTo(0, 0);
+  }
+};
+
+// Fungsi untuk cek parameter search dari URL
+function checkSearchParams() {
+  const hash = window.location.hash;
+  const urlParams = new URLSearchParams(hash.split("?")[1]);
+  const searchQuery = urlParams.get("search");
+
+  if (searchQuery) {
+    console.log("Search query detected:", searchQuery);
+
+    // Cari di semua kategori
+    let foundCategory = null;
+    let allResults = [];
+
+    for (const cat in menuData) {
+      const results = menuData[cat].filter((item) =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      if (results.length > 0) {
+        foundCategory = cat;
+        allResults = allResults.concat(results);
+      }
+    }
+
+    if (foundCategory) {
+      // Tampilkan hasil dari kategori pertama yang ditemukan
+      setTimeout(() => {
+        showDetail(foundCategory, searchQuery);
+      }, 100);
+    } else {
+      // Jika tidak ada hasil, tetap tampilkan dengan pesan kosong
+      setTimeout(() => {
+        showDetail("cold", searchQuery);
+      }, 100);
+    }
+  }
+}
+
+// Jalankan saat halaman dimuat
+setTimeout(checkSearchParams, 200);
+
+// Listen untuk perubahan hash
+window.addEventListener("hashchange", function () {
+  if (window.location.hash.includes("#/menu")) {
+    setTimeout(checkSearchParams, 100);
+  }
+});
+
+/* =========================================
+   LOGIKA KERANJANG BELANJA (CART SYSTEM)
+   ========================================= */
+
+// 1. Data Dummy (Simulasi data belanjaan)
+let cartData = [
+  {
+    id: 1,
+    name: "Iced Caramel Macchiato",
+    price: 35000,
+    qty: 1,
+    img: "img/Unknown.jpeg",
+  },
+  {
+    id: 2,
+    name: "Croissant",
+    price: 22000,
+    qty: 2,
+    img: "img/hot-beverages.jpg",
+  },
+  {
+    id: 3,
+    name: "Cold Brew",
+    price: 30000,
+    qty: 1,
+    img: "img/Cold Brew.jpeg",
+  },
+];
+
+// 2. Fungsi untuk Menampilkan (Render) Cart ke HTML
+function renderCart() {
+  const container = document.getElementById("cart-items-container");
+  const totalItemsEl = document.getElementById("total-items");
+  const finalTotalEl = document.getElementById("final-total");
+  const taxEl = document.getElementById("tax-amount");
+
+  // Cek apakah elemen ada (karena fungsi ini global, tapi elemen hanya ada di halaman cart)
+  if (!container) return;
+
+  // Jika keranjang kosong
+  if (cartData.length === 0) {
+    container.innerHTML = `
+      <div style="text-align:center; padding: 40px;">
+        <i data-feather="shopping-cart" style="width: 50px; height: 50px; color: #ccc;"></i>
+        <p>Keranjang Anda kosong.</p>
+        <a href="#/menu" style="color: #b6895b; text-decoration: underline;">Belanja Sekarang</a>
+      </div>
+    `;
+    totalItemsEl.innerText = "0";
+    finalTotalEl.innerText = "Rp 0";
+    taxEl.innerText = "Rp 0";
+    if (window.feather) feather.replace();
+    return;
+  }
+
+  // Jika ada isi, buat HTML-nya
+  let html = "";
+  let subtotal = 0;
+  let totalQty = 0;
+
+  cartData.forEach((item, index) => {
+    const itemTotal = item.price * item.qty;
+    subtotal += itemTotal;
+    totalQty += item.qty;
+
+    html += `
+      <div class="cart-item">
+        <img src="${item.img}" alt="${
+      item.name
+    }" onerror="this.src='img/header-bg.jpg'">
+        <div class="item-details">
+          <h3>${item.name}</h3>
+          <p>Jumlah: ${item.qty} x ${formatRupiah(item.price)}</p>
+          <div class="item-price">Total: ${formatRupiah(itemTotal)}</div>
+        </div>
+        <div class="item-actions">
+          <button class="btn-remove" onclick="deleteCartItem(${index})">
+            <i data-feather="trash-2"></i> Hapus
+          </button>
+        </div>
       </div>
     `;
   });
 
-  mainSelection.style.display = "none";
-  detailContainer.style.display = "block";
+  container.innerHTML = html;
 
-  if (typeof feather !== "undefined") feather.replace();
-  window.scrollTo(0, 0);
+  // Hitung Pajak dan Total
+  const tax = subtotal * 0.1; // Pajak 10%
+  const grandTotal = subtotal + tax;
+
+  // Update Text Ringkasan
+  totalItemsEl.innerText = totalQty + " pcs";
+  taxEl.innerText = formatRupiah(tax);
+  finalTotalEl.innerText = formatRupiah(grandTotal);
+
+  // Render icon trash
+  if (window.feather) feather.replace();
 }
 
-// Fungsi untuk kembali
-function hideDetail() {
-  const mainSelection = document.getElementById("main-menu-selection");
-  const detailContainer = document.getElementById("menu-detail-container");
-
-  if (mainSelection && detailContainer) {
-    detailContainer.style.display = "none";
-    mainSelection.style.display = "flex";
-    window.scrollTo(0, 0);
+// 3. Fungsi Menghapus Item
+function deleteCartItem(index) {
+  // Konfirmasi penghapusan
+  if (confirm("Hapus item ini dari keranjang?")) {
+    cartData.splice(index, 1); // Hapus data dari array
+    renderCart(); // Render ulang tampilan
   }
+}
+
+// 4. Helper: Format Rupiah
+function formatRupiah(angka) {
+  return "Rp " + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }

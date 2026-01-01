@@ -1,17 +1,23 @@
 <style>
-  .search-page {
-    padding: 120px 7% 50px;
-    background-color: transparent;
+  body.search-page {
+    background-image: url(../img/header-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     min-height: 100vh;
+    margin: 0;
+    padding: 1.4rem 7%;
     display: flex;
     justify-content: center;
-    font-family: "Poppins", sans-serif;
+    align-items: center;
   }
 
   .search-wrapper {
     width: 100%;
-    max-width: 600px;
+    max-width: 800px;
     text-align: center;
+    padding: 40px 20px;
   }
 
   .search-wrapper h2 {
@@ -23,77 +29,144 @@
 
   .search-form .input-group {
     display: flex;
-    border: 2px solid #e1e1e1;
-    border-radius: 8px;
+    border: 5px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50px;
     overflow: hidden;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    max-width: 100%;
   }
 
   .search-form .input-group:focus-within {
     border-color: #b6895b;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 8px 40px rgba(182, 137, 91, 0.4);
+    transform: scale(1.02);
   }
 
   .search-form input {
     flex: 1;
-    padding: 12px 20px;
+    padding: 20px 30px;
     border: none;
     outline: none;
-    font-size: 1rem;
+    font-size: 1.1rem;
     background: transparent;
-    color: #fff;
+    color: #333;
+    font-family: "Poppins", sans-serif;
+    min-width: 0;
+  }
+
+  .search-form input::placeholder {
+    color: rgba(100, 100, 100, 0.6);
   }
 
   .search-form .search-btn {
-    background: #fff;
+    background: #b6895b;
     border: none;
-    padding: 0 15px;
+    padding: 20px 35px;
     cursor: pointer;
-    color: #333;
+    color: white;
     display: flex;
     align-items: center;
-    transition: color 0.3s;
+    justify-content: center;
+    transition: all 0.3s;
+    flex-shrink: 0;
   }
 
   .search-form .search-btn:hover {
-    color: #b6895b;
+    background: #d4a574;
+  }
+
+  .search-form .search-btn i {
+    width: 24px;
+    height: 24px;
   }
 
   .search-results {
     margin-top: 20px;
-    color: #777;
-    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    padding: 10px;
   }
 
-  body.search-page {
-    background-image: url(../img/header-bg.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    min-height: 100vh;
-    margin: 0;
-    padding: 1.4rem 7%;
-    display: block;
+  .search-results.error {
+    color: #ff6b6b;
+  }
+
+  .search-results.success {
+    color: #51cf66;
+  }
+
+  @media (max-width: 768px) {
+    .search-wrapper {
+      padding: 30px 15px;
+      max-width: 95%;
+    }
+
+    .search-wrapper h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .search-form input {
+      padding: 15px 20px;
+      font-size: 1rem;
+    }
+
+    .search-form .search-btn {
+      padding: 15px 25px;
+    }
+
+    .search-form .search-btn i {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .search-wrapper h2 {
+      font-size: 1.3rem;
+    }
+
+    .search-form input {
+      padding: 12px 15px;
+      font-size: 0.95rem;
+    }
+
+    .search-form .search-btn {
+      padding: 12px 20px;
+    }
   }
 </style>
 
-<div class="search-form">
-  <div class="input-group">
-    <input type="text" id="search-input" placeholder="Cari menu..." />
-    <button type="button" class="search-btn" onclick="handleSearch()">
-      <i data-feather="search"></i>
-    </button>
+<div class="search-wrapper">
+  <h2>Cari Menu Kami</h2>
+  <div class="search-form">
+    <div class="input-group">
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Cari menu..."
+        onkeydown="if(event.key==='Enter'){var v=this.value.trim();if(v)window.location.href='#/menu?search='+encodeURIComponent(v);}"
+      />
+      <button
+        type="button"
+        class="search-btn"
+        onclick="var inp=document.getElementById('search-input');var v=inp.value.trim();if(v)window.location.href='#/menu?search='+encodeURIComponent(v);else alert('Silakan masukkan nama menu');"
+      >
+        <i data-feather="search"></i>
+      </button>
+    </div>
   </div>
+  <div class="search-results" id="search-results"></div>
 </div>
 
 <script>
-  function handleSearch() {
-    const query = document.getElementById("search-input").value;
-    if (query) {
-      // Mengarahkan ke route menu dengan hash (agar ditangkap routers.js)
-      window.location.hash = `#/menu?search=${encodeURIComponent(query)}`;
+  // Aktifkan icon feather
+  setTimeout(function () {
+    if (typeof feather !== "undefined") {
+      feather.replace();
     }
-  }
-  // Aktifkan icon feather jika diperlukan
-  if (typeof feather !== "undefined") feather.replace();
+  }, 100);
 </script>

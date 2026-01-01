@@ -1,14 +1,23 @@
 <style>
   body.menu-page {
     padding-top: 100px;
+
     background-image: url("../img/header-bg.jpg");
+
     background-repeat: no-repeat;
+
     background-size: cover;
+
     background-position: center;
+
     background-attachment: fixed;
+
     min-height: 100vh;
+
     margin: 0;
+
     padding: 1.4rem 7%;
+
     display: block;
   }
 
@@ -18,13 +27,17 @@
 
   .menu-container {
     padding: 2rem 7%;
+
     min-height: 100vh;
+
     margin-top: 60px;
   }
 
   .menu-utamas-coffee {
     display: flex;
+
     flex-direction: column;
+
     gap: 25px;
   }
 
@@ -79,11 +92,12 @@
     font-size: 1rem;
     margin-top: 30px;
     color: white;
-    background-color: var(--primary);
+    background-color: #714d37;
     border: none;
     padding: 10px 20px;
     border-radius: 10px;
     margin-bottom: 20px;
+    cursor: pointer;
   }
 
   .back-btn:hover {
@@ -102,24 +116,25 @@
 
   .menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
     padding: 20px 0;
   }
 
   .menu-item-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
     border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    padding: 14px;
+    gap: 14px;
     overflow: hidden;
-    transition: 0.3s;
-    text-align: center;
-    padding: 15px;
   }
 
   .menu-item-card:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.2);
     transform: translateY(-5px);
   }
 
@@ -127,9 +142,7 @@
     width: 100%;
     height: 200px;
     object-fit: cover;
-    border-radius: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 14px;
   }
 
   .menu-item-card h3 {
@@ -141,250 +154,403 @@
   .menu-item-card p {
     color: #ccc;
     font-size: 0.85rem;
-    margin-bottom: 10px;
+    /* Tambahkan ini: */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
   }
 
   #menu-detail-container {
     animation: fadeIn 0.5s ease-in-out;
   }
 
-  .card-image-wrapper img {
-    width: 350px;
-    height: 350px;
-    object-fit: cover;
-    border-radius: 15px;
-    margin-bottom: 15px;
-  }
-
   .price {
-    display: block;
+    margin-top: auto;
     color: #b6895b;
     font-weight: bold;
-    font-size: 1.1rem;
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* jarak antar teks */
+    padding: 12px 10px; /* ⬅️ INI YANG SELAMA INI HILANG */
+    box-sizing: border-box;
+    text-align: left;
+  }
+
+  .card-content h3 {
+    max-width: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .card-content p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.4;
+  }
+
+  .no-results {
+    text-align: center;
+    color: white;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    margin-top: 20px;
+  }
+
+  .no-results h3 {
+    color: #b6895b;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    /* Tambahkan ini: */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .add-to-cart-btn {
+    background-color: #714d37;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+  }
+
+  .add-to-cart-btn:hover {
+    background-color: #b6895b;
+    transform: scale(1.1);
   }
 
   @keyframes fadeIn {
     from {
       opacity: 0;
+
       transform: translateY(20px);
     }
+
     to {
       opacity: 1;
+
       transform: translateY(0);
     }
   }
 </style>
 
-<body class="menu-page">
-  <div class="menu-container">
-    <section class="menu-utamas-coffee" id="main-menu-selection">
-      <div class="cold-menu" onclick="showDetail('cold')">
-        <img src="img/Unknown.jpeg" class="menu-img" alt="cold" />
-        <div class="menu-info">
-          <h2>Cold Menu</h2>
-          <p>
-            Nikmati kesegaran kopi dingin pilihan kami yang memuaskan dahaga.
-          </p>
-        </div>
+<div class="menu-container">
+  <section class="menu-utamas-coffee" id="main-menu-selection">
+    <div class="cold-menu" onclick="showDetail('cold')">
+      <img src="../img/Unknown.jpeg" class="menu-img" alt="cold" />
+
+      <div class="menu-info">
+        <h2>Cold Menu</h2>
+
+        <p>Nikmati kesegaran kopi dingin pilihan kami yang memuaskan dahaga.</p>
+      </div>
+    </div>
+
+    <div class="hot-menu" onclick="showDetail('hot')">
+      <div class="menu-info">
+        <h2>Hot Menu</h2>
+
+        <p>Kehangatan kopi autentik dengan aroma yang menenangkan jiwa.</p>
       </div>
 
-      <div class="hot-menu" onclick="showDetail('hot')">
-        <div class="menu-info">
-          <h2>Hot Menu</h2>
-          <p>Kehangatan kopi autentik dengan aroma yang menenangkan jiwa.</p>
-        </div>
-        <img src="img/hot-beverages.jpg" class="menu-img" alt="hot" />
-      </div>
+      <img src="../img/hot-beverages.jpg" class="menu-img" alt="hot" />
+    </div>
 
-      <div class="pastry-menu" onclick="showDetail('pastry')">
-        <img
-          src="img/Gooey Homemade Cinnamon Rolls – Soft, Fluffy & Irresistible.jpg"
-          class="menu-img"
-          alt="pastry"
-        />
-        <div class="menu-info">
-          <h2>Pastry Menu</h2>
-          <p>Kue lezat dan lembut sebagai teman sempurna cangkir kopi Anda.</p>
-        </div>
-      </div>
-    </section>
+    <div class="pastry-menu" onclick="showDetail('pastry')">
+      <img src="../img/pastry-menu.jpg" class="menu-img" alt="pastry" />
+      <div class="menu-info">
+        <h2>Pastry Menu</h2>
 
-    <section id="menu-detail-container" style="display: none">
-      <button class="back-btn" onclick="hideDetail()">← Kembali ke Menu</button>
-      <h2 id="detail-title" style="color: white; margin-bottom: 20px"></h2>
-      <div id="detail-list" class="menu-grid"></div>
-    </section>
-  </div>
-</body>
+        <p>Kue lezat dan lembut sebagai teman sempurna cangkir kopi Anda.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu-detail-container" style="display: none">
+    <button class="back-btn" onclick="hideDetail()">← Kembali ke Menu</button>
+
+    <h2 id="detail-title" style="color: white; margin-bottom: 20px"></h2>
+
+    <div id="detail-list" class="menu-grid"></div>
+  </section>
+</div>
 
 <script>
-  // Database menu disesuaikan dengan elemen HTML asli Anda
+  // Database menu
+
   const menuData = {
     cold: [
       {
         name: "Iced Latte",
+
         price: "Rp 25.000",
+
         desc: "Espresso dengan susu dingin segar.",
+
         img: "../img/Iced Latte.jpeg",
       },
+
       {
         name: "Cold Brew",
+
         price: "Rp 30.000",
+
         desc: "Kopi ekstraksi dingin selama 12 jam.",
+
         img: "../img/Cold Brew.jpeg",
       },
+
       {
         name: "Iced Americano",
+
         price: "Rp 20.000",
+
         desc: "Espresso dengan es batu dan air.",
       },
+
       {
         name: "Iced Nutella Latte",
+
         price: "Rp 35.000",
+
         desc: "Espresso dengan susu dingin dan nutella.",
       },
+
       {
         name: "Iced Matcha Latte",
+
         price: "Rp 30.000",
+
         desc: "Bubuk matcha dengan susu dingin.",
       },
+
       {
         name: "Iced Mochaccino",
+
         price: "Rp 38.000",
+
         desc: "Espresso dengan susu dingin dan cokelat.",
       },
+
       {
         name: "Iced Caramel Macchiato",
+
         price: "Rp 35.000",
+
         desc: "Espresso dengan susu dingin dan karamel.",
       },
+
       {
         name: "Iced Brown Sugar Latte",
+
         price: "Rp 28.000",
+
         desc: "Espresso dengan susu dingin dan brown sugar.",
       },
+
       {
         name: "Sea Salt Cloud Chocolate",
+
         price: "Rp 33.000",
+
         desc: "Espresso dengan krim cloud dan cokelat.",
       },
+
       {
         name: "Iced Cappuccino",
+
         price: "Rp 35.000",
+
         desc: "Espresso dengan susu dingin dan busa susu.",
       },
     ],
+
     hot: [
       {
         name: "Hot Cappuccino",
+
         price: "Rp 22.000",
+
         desc: "Espresso dengan busa susu tebal dan cokelat bubuk.",
       },
+
       {
         name: "Hot Americano",
+
         price: "Rp 18.000",
+
         desc: "Espresso klasik dengan air panas.",
       },
+
       {
         name: "Hot Latte",
+
         price: "Rp 25.000",
+
         desc: "Espresso dengan steamed milk yang lembut.",
       },
+
       {
         name: "Espresso Shot",
+
         price: "Rp 15.000",
+
         desc: "Espresso murni dengan rasa kuat dan pekat.",
       },
+
       {
         name: "Hot Chocolate",
+
         price: "Rp 28.000",
-        desc: "Espresso dengan busa susu tebal dan cokelat bubuk.",
+
+        desc: "Cokelat hangat dengan busa susu.",
       },
+
       {
         name: "Hot Mocha",
+
         price: "Rp 32.000",
-        desc: "Espresso dengan busa susu tebal dan cokelat bubuk.",
+
+        desc: "Espresso dengan cokelat dan steamed milk.",
       },
+
       {
         name: "Hot Caramel Macchiato",
+
         price: "Rp 34.000",
-        desc: "Espresso dengan busa susu tebal dan caramel sauce.",
+
+        desc: "Espresso dengan steamed milk dan caramel sauce.",
       },
+
       {
         name: "Flat White",
+
         price: "Rp 25.000",
+
         desc: "Espresso dengan susu steam tanpa foam.",
       },
+
       {
         name: "Hot Matcha Latte",
+
         price: "Rp 34.000",
+
         desc: "Bubuk matcha dengan susu panas.",
       },
+
       {
         name: "Hot Tea",
+
         price: "Rp 18.000",
+
         desc: "Teh panas dengan rasa yang lembut dan hangat.",
       },
     ],
+
     pastry: [
       {
         name: "Cinnamon Roll",
+
         price: "Rp 20.000",
+
         desc: "Roti kayu manis yang lembut dan manis.",
       },
+
       {
         name: "Croissant",
+
         price: "Rp 22.000",
+
         desc: "Pastry renyah mentega khas Perancis.",
       },
+
       {
         name: "Choco Muffin",
+
         price: "Rp 15.000",
+
         desc: "Muffin cokelat panggang dengan choco chips.",
       },
+
       {
         name: "Almond Croissant",
+
         price: "Rp 25.000",
+
         desc: "Pastry renyah mentega khas Perancis dengan almond.",
       },
+
       {
         name: "Blueberry Muffin",
+
         price: "Rp 15.000",
+
         desc: "Muffin blueberry panggang dengan blueberry chips.",
       },
+
       {
         name: "Choco Danish",
+
         price: "Rp 23.000",
+
         desc: "Pastry cokelat dengan krim dan choco chips.",
       },
+
       {
         name: "Tiramisu Cake",
+
         price: "Rp 38.000",
+
         desc: "Layer cake dengan rasa kopi dan krim mascarpone.",
       },
+
       {
         name: "Cheesecake",
+
         price: "Rp 35.000",
+
         desc: "Kue keju lembut dengan crust renyah.",
       },
+
       {
         name: "Chocolate Fudge Cake",
+
         price: "Rp 38.000",
+
         desc: "Kue cokelat lembut dengan lapisan fudge kaya rasa.",
       },
+
       {
         name: "Banana Bread",
+
         price: "Rp 30.000",
+
         desc: "Roti pisang lembut dengan rasa manis.",
       },
     ],
   };
 
+  // Fungsi untuk menampilkan detail
+
+  // 2. Fungsi Menampilkan Detail Menu
   function showDetail(category, query = null) {
     const mainSection = document.getElementById("main-menu-selection");
     const detailSection = document.getElementById("menu-detail-container");
     const detailList = document.getElementById("detail-list");
     const detailTitle = document.getElementById("detail-title");
+
+    if (!mainSection || !detailSection || !detailList || !detailTitle) return;
 
     mainSection.style.display = "none";
     detailSection.style.display = "block";
@@ -395,87 +561,59 @@
       items = items.filter((item) =>
         item.name.toLowerCase().includes(query.toLowerCase())
       );
-      detailTitle.innerText = "HASIL PENCARIAN: " + query.toUpperCase();
+      detailTitle.innerText = `HASIL PENCARIAN: "${query}"`;
     } else {
       detailTitle.innerText = category.toUpperCase() + " MENU";
     }
 
-    // MENGGUNAKAN DESAIN UI YANG SAMA DENGAN MENU UTAMA (Layout Horizontal)
+    // Merender Kartu Menu dengan Tombol Cart
     detailList.innerHTML = items
       .map(
         (item) => `
-    <div class="cold-menu" style="margin-bottom: 25px; cursor: default;">
-      <img src="${item.img || "../img/header-bg.jpg"}" class="menu-img" 
-           onerror="this.src='../img/header-bg.jpg'" />
-      <div class="menu-info">
-        <h2>${item.name}</h2>
-        <p>${item.desc || "Nikmati kelezatan menu pilihan kami."}</p>
-        <p class="price" style="margin-top: 10px; font-size: 1.2rem;">${
-          item.price
-        }</p>
+      <div class="menu-item-card">
+        <img src="${
+          item.img || "../img/header-bg.jpg"
+        }" onerror="this.src='../img/header-bg.jpg'" alt="${item.name}" />
+        <div class="card-content">
+          <h3>${item.name}</h3>
+          <p>${item.desc || "Nikmati kelezatan menu pilihan kami."}</p>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
+            <div class="price">${item.price}</div>
+            <button class="add-to-cart-btn" onclick="addToCart('${
+              item.name
+            }', '${item.price}', '${item.img || "../img/header-bg.jpg"}')">
+              + 🛒
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
-  `
+    `
       )
       .join("");
+    window.scrollTo(0, 0);
   }
 
+  // 3. Fungsi Tambah ke Keranjang (DILUAR showDetail)
+  function addToCart(name, price, img) {
+    let cart = JSON.parse(localStorage.getItem("coffee_cart")) || [];
+    cart.push({ name, price, img });
+    localStorage.setItem("coffee_cart", JSON.stringify(cart));
+    alert(name + " ditambahkan ke keranjang!");
+  }
+
+  // 4. Fungsi Kembali
   function hideDetail() {
-    document.getElementById("main-menu-selection").style.display = "flex";
     document.getElementById("menu-detail-container").style.display = "none";
-    // Reset URL agar parameter search hilang saat kembali
-    window.history.replaceState({}, document.title, "menu.html");
+    document.getElementById("main-menu-selection").style.display = "flex";
+    window.location.hash = "#/menu";
   }
 
-  // LOGIKA OTOMATIS SAAT HALAMAN DI-LOAD
+  // 5. Inisialisasi
   window.onload = function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchQuery = urlParams.get("search");
-
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      let foundCategory = null;
-
-      // Cari kategori mana yang mengandung menu tersebut
-      for (const cat in menuData) {
-        if (
-          menuData[cat].some((item) => item.name.toLowerCase().includes(query))
-        ) {
-          foundCategory = cat;
-          break;
-        }
-      }
-
-      if (foundCategory) {
-        showDetail(foundCategory, searchQuery);
-      } else {
-        alert("Maaf, menu '" + searchQuery + "' tidak ditemukan.");
-      }
-    }
-  };
-
-  // Fungsi untuk mengecek parameter pencarian dari hash URL
-  function checkSearchParam() {
     const hash = window.location.hash;
     if (hash.includes("?search=")) {
       const searchQuery = decodeURIComponent(hash.split("?search=")[1]);
-
-      // Cari kategori yang mengandung item tersebut
-      let foundCat = "cold"; // default
-      for (const cat in menuData) {
-        if (
-          menuData[cat].some((item) =>
-            item.name.toLowerCase().includes(searchQuery.toLowerCase())
-          )
-        ) {
-          foundCat = cat;
-          break;
-        }
-      }
-      showDetail(foundCat, searchQuery);
+      showDetail("cold", searchQuery);
     }
-  }
-
-  // Jalankan saat konten dimuat oleh router
-  setTimeout(checkSearchParam, 100);
+  };
 </script>

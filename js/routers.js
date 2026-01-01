@@ -1,66 +1,40 @@
 const routes = {
-  "/": "/pages/home.html",
-  "/about": "/pages/about.html",
-  "/menu": "/pages/menu.html",
-  "/contact": "/pages/contact.html",
-  "/search": "/pages/search.html",
-  "/cart": "/pages/cart.html",
+  "/": "pages/home.html",
+  "/about": "pages/about.html",
+  "/menu": "pages/menu.html",
+  "/contact": "pages/contact.html",
+  "/search": "pages/search.html",
+  "/cart": "pages/cart.html",
 };
 
 async function redirect() {
   const hash = window.location.hash || "#/";
-  const path = hash.slice(1);
+  const pathWithQuery = hash.slice(1);
+  const path = pathWithQuery.split("?")[0];
   const route = routes[path] || routes["/"];
 
+  // Reset class body untuk styling per halaman
   document.body.className = "";
-
-  switch (path) {
-    case "/about":
-      document.body.classList.add("about-page");
-      break;
-    case "/search":
-      document.body.classList.add("search-page");
-      break;
-    case "/menu":
-      document.body.classList.add("menu-page");
-      break;
-    case "/contact":
-      document.body.classList.add("contact-page");
-      break;
-    case "/cart":
-      document.body.classList.add("cart-page");
-      break;
-    default:
-      document.body.classList.add("home-page");
-  }
+  const pageClass = path.split("/")[1] || "home";
+  document.body.classList.add(`${pageClass}-page`);
 
   try {
     const response = await fetch(route);
-    if (!response.ok) throw new Error();
+    if (!response.ok) throw new Error("Page not found");
     const html = await response.text();
     document.getElementById("app").innerHTML = html;
-    document.body.classList;
+
+    // Render ulang icon feather setelah konten baru masuk
+    if (window.feather) {
+      feather.replace();
+    }
   } catch (error) {
     document.getElementById("app").innerHTML =
-      "<div class='error'><h2>404</h2><p>Page not found.</p></div>";
+      "<div class='error'><h2>404</h2><p>Halaman tidak ditemukan.</p></div>";
+    console.error("Routing Error:", error);
   }
 }
 
+// Jalankan fungsi saat hash berubah atau saat halaman pertama kali dimuat
 window.addEventListener("hashchange", redirect);
 window.addEventListener("DOMContentLoaded", redirect);
-
-// Di dalam routers.js, tambahkan feather.replace() setelah konten di-inject
-try {
-  const response = await fetch(route);
-  if (!response.ok) throw new Error();
-  const html = await response.text();
-  document.getElementById("app").innerHTML = html;
-
-  // PENTING: Panggil kembali agar icon muncul di halaman baru
-  if (window.feather) {
-    feather.replace();
-  }
-} catch (error) {
-  document.getElementById("app").innerHTML =
-    "<div class='error'><h2>404</h2><p>Page not found.</p></div>";
-}
