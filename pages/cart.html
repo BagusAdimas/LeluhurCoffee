@@ -1,22 +1,22 @@
 <style>
-  /* --- CSS Khusus Halaman Cart --- */
-  body.cart-page {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: "Poppins", sans-serif;
     background-image: url(../img/header-bg.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     min-height: 100vh;
-    margin: 0;
-    padding: 1.4rem 7%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 
   .cart-page-wrapper {
     padding: 120px 7% 50px;
-    font-family: "Poppins", sans-serif;
     color: white;
     min-height: 100vh;
   }
@@ -31,12 +31,11 @@
 
   .cart-container {
     display: grid;
-    grid-template-columns: 2fr 1fr; /* Bagian kiri lebih lebar dari kanan */
+    grid-template-columns: 2fr 1fr;
     gap: 30px;
     align-items: start;
   }
 
-  /* --- Daftar Item Belanja (Kiri) --- */
   .cart-items-wrapper {
     background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
@@ -81,7 +80,7 @@
   }
 
   .item-details .item-price {
-    color: #b6895b; /* Warna Emas Kopi */
+    color: #b6895b;
     font-weight: bold;
   }
 
@@ -90,6 +89,50 @@
     flex-direction: column;
     align-items: flex-end;
     gap: 10px;
+  }
+
+  .quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .quantity-btn {
+    background-color: rgba(182, 137, 91, 0.8);
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+  }
+
+  .quantity-btn:hover:not(:disabled) {
+    background-color: #b6895b;
+    transform: scale(1.1);
+  }
+
+  .quantity-btn:disabled {
+    background-color: rgba(100, 100, 100, 0.5);
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .quantity-display {
+    color: white;
+    font-weight: bold;
+    min-width: 30px;
+    text-align: center;
   }
 
   .btn-remove {
@@ -111,7 +154,6 @@
     color: white;
   }
 
-  /* --- Ringkasan Belanja (Kanan) --- */
   .cart-summary {
     background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
@@ -119,13 +161,14 @@
     border-radius: 20px;
     padding: 25px;
     position: sticky;
-    top: 100px; /* Agar tetap terlihat saat scroll */
+    top: 100px;
   }
 
   .cart-summary h3 {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     padding-bottom: 15px;
     margin-bottom: 15px;
+    color: white;
   }
 
   .summary-row {
@@ -159,23 +202,98 @@
     cursor: pointer;
     transition: 0.3s;
     text-transform: uppercase;
+    border: none;
   }
 
-  .btn-checkout:hover {
+  .btn-checkout:hover:not(:disabled) {
     background-color: #8c5f44;
     transform: scale(1.02);
   }
 
-  /* Responsif untuk HP */
+  .btn-checkout:disabled {
+    background-color: rgba(100, 100, 100, 0.5);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .empty-cart {
+    text-align: center;
+    padding: 40px;
+    color: #ccc;
+  }
+
+  .empty-cart p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+
+  .btn-back-menu {
+    background-color: #b6895b;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+
+  .btn-back-menu:hover {
+    background-color: #8c5f44;
+    transform: scale(1.05);
+  }
+
+  /* Toast Notification */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #4caf50;
+    color: white;
+    padding: 16px 24px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    animation: slideIn 0.3s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(400px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
   @media (max-width: 768px) {
     .cart-container {
       grid-template-columns: 1fr;
+    }
+
+    .cart-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .item-actions {
+      width: 100%;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-summary {
+      position: relative;
+      top: 0;
     }
   }
 </style>
 
 <div class="cart-page-wrapper">
-  <h1 class="cart-title">Keranjang Belanja Anda</h1>
+  <h1 class="cart-title">🛒 Keranjang Belanja Anda</h1>
 
   <div class="cart-container">
     <div class="cart-items-wrapper" id="cart-items-container">
@@ -183,10 +301,14 @@
     </div>
 
     <div class="cart-summary">
-      <h3>Ringkasan</h3>
+      <h3>Ringkasan Belanja</h3>
       <div class="summary-row">
         <span>Total Item</span>
         <span id="total-items">0</span>
+      </div>
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span id="subtotal-amount">Rp 0</span>
       </div>
       <div class="summary-row">
         <span>Pajak (10%)</span>
@@ -196,64 +318,160 @@
         <span>Total Bayar</span>
         <span id="final-total">Rp 0</span>
       </div>
-      <div class="btn-checkout" onclick="alert('Lanjut ke pembayaran...')">
+      <button class="btn-checkout" id="checkout-btn" onclick="checkout()">
         Checkout Sekarang
-      </div>
+      </button>
     </div>
   </div>
 </div>
 
 <script>
+  // Fungsi untuk mendapatkan cart
+  function getCart() {
+    const cart = JSON.parse(localStorage.getItem("coffee_cart")) || [];
+    return cart;
+  }
+
+  // Fungsi untuk menyimpan cart
+  function saveCart(cart) {
+    localStorage.setItem("coffee_cart", JSON.stringify(cart));
+  }
+
+  // Fungsi untuk menambah quantity
+  function increaseQuantity(index) {
+    let cart = getCart();
+    if (cart[index]) {
+      cart[index].quantity = (cart[index].quantity || 1) + 1;
+      saveCart(cart);
+      renderCart();
+    }
+  }
+
+  // Fungsi untuk mengurangi quantity
+  function decreaseQuantity(index) {
+    let cart = getCart();
+    if (cart[index] && cart[index].quantity > 1) {
+      cart[index].quantity -= 1;
+      saveCart(cart);
+      renderCart();
+    }
+  }
+
+  // Fungsi untuk menghapus item
+  function removeFromCart(index) {
+    if (confirm("Apakah Anda yakin ingin menghapus item ini dari keranjang?")) {
+      let cart = getCart();
+      cart.splice(index, 1);
+      saveCart(cart);
+      renderCart();
+      showToast("Item berhasil dihapus dari keranjang");
+    }
+  }
+
+  // Fungsi untuk render cart
+  // Fungsi untuk render cart dan HITUNG TOTAL
   function renderCart() {
-    let cart = JSON.parse(localStorage.getItem("coffee_cart")) || [];
+    let cart = getCart();
     const container = document.getElementById("cart-items-container");
+
     let subtotal = 0;
+    let totalItemsCount = 0;
 
     if (cart.length === 0) {
-      container.innerHTML =
-        '<p style="text-align: center; color: #ccc">Keranjang kosong</p>';
+      container.innerHTML = `
+        <div class="empty-cart">
+          <p>🛒 Keranjang belanja Anda masih kosong</p>
+          <button class="btn-back-menu" onclick="window.location.href='menu.html'">
+            Kembali ke Menu
+          </button>
+        </div>
+      `;
+      // Matikan tombol checkout jika kosong
+      const checkoutBtn = document.getElementById("checkout-btn");
+      if (checkoutBtn) checkoutBtn.disabled = true;
+
+      // Reset angka-angka
+      document.getElementById("total-items").innerText = "0";
+      document.getElementById("subtotal-amount").innerText = "Rp 0";
+      document.getElementById("tax-amount").innerText = "Rp 0";
+      document.getElementById("final-total").innerText = "Rp 0";
     } else {
       container.innerHTML = cart
         .map((item, index) => {
-          // Membersihkan "Rp 25.000" menjadi angka 25000
+          // Pastikan quantity minimal 1
+          if (!item.quantity || item.quantity < 1) item.quantity = 1;
+
+          // LOGIKA PENTING: Membersihkan string harga
+          // Mengubah "Rp 25.000" menjadi angka murni 25000
           let cleanPrice = parseInt(item.price.replace(/[^0-9]/g, ""));
-          if (!isNaN(cleanPrice)) subtotal += cleanPrice;
+
+          let itemTotal = cleanPrice * item.quantity;
+
+          // Akumulasi total
+          subtotal += itemTotal;
+          totalItemsCount += item.quantity;
 
           return `
-        <div class="cart-item" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; background:rgba(255,255,255,0.1); padding:15px; border-radius:15px;">
-          <div style="display:flex; align-items:center; gap:15px;">
-            <img src="${item.img}" width="60" height="60" style="object-fit:cover; border-radius:10px;">
-            <div>
-              <h4 style="margin:0">${item.name}</h4>
-              <p style="margin:5px 0; color:#b6895b">${item.price}</p>
+            <div class="cart-item">
+              <img src="${
+                item.img
+              }" onerror="this.src='../img/header-bg.jpg'" alt="${item.name}">
+              <div class="item-details">
+                <h3>${item.name}</h3>
+                <p class="item-price">
+                  ${item.price} x ${item.quantity} = 
+                  <span style="color:white;">Rp ${itemTotal.toLocaleString(
+                    "id-ID"
+                  )}</span>
+                </p>
+              </div>
+              <div class="item-actions">
+                <div class="quantity-control">
+                  <button class="quantity-btn" onclick="decreaseQuantity(${index})">−</button>
+                  <span class="quantity-display">${item.quantity}</span>
+                  <button class="quantity-btn" onclick="increaseQuantity(${index})">+</button>
+                </div>
+                <button class="btn-remove" onclick="removeFromCart(${index})">🗑️</button>
+              </div>
             </div>
-          </div>
-          <button onclick="removeFromCart(${index})" style="background:#ff4d4d; color:white; border:none; padding:8px; border-radius:5px; cursor:pointer;">Hapus</button>
-        </div>`;
+          `;
         })
         .join("");
+
+      const checkoutBtn = document.getElementById("checkout-btn");
+      if (checkoutBtn) checkoutBtn.disabled = false;
     }
 
-    // Hitung Pajak 10%
-    const tax = subtotal * 0.1;
-    document.getElementById("total-items").innerText = cart.length;
+    // Hitung Pajak dan Total Akhir
+    const tax = subtotal * 0.1; // Pajak 10%
+    const finalTotal = subtotal + tax;
+
+    // Tampilkan ke layar dengan format Rupiah
+    document.getElementById("total-items").innerText = totalItemsCount;
+    document.getElementById("subtotal-amount").innerText =
+      "Rp " + subtotal.toLocaleString("id-ID");
     document.getElementById("tax-amount").innerText =
-      "Rp " + tax.toLocaleString("id-ID");
+      "Rp " + Math.round(tax).toLocaleString("id-ID");
     document.getElementById("final-total").innerText =
-      "Rp " + (subtotal + tax).toLocaleString("id-ID");
+      "Rp " + Math.round(finalTotal).toLocaleString("id-ID");
+
+    // Simpan update terbaru (jika ada perubahan quantity otomatis)
+    // saveCart(cart); // Opsional: hati-hati loop jika dipanggil sembarangan
   }
 
-  function removeFromCart(index) {
-    let cart = JSON.parse(localStorage.getItem("coffee_cart")) || [];
-    cart.splice(index, 1);
-    localStorage.setItem("coffee_cart", JSON.stringify(cart));
+  // Fungsi untuk checkout
+  function checkout() {
+    let cart = getCart();
+    if (cart.length === 0) {
+      alert("Keranjang belanja Anda kosong!");
+      return;
+    }
+
+    // Proses checkout (sederhana)
+    alert("Terima kasih telah berbelanja! Pesanan Anda sedang diproses.");
+
+    // Kosongkan keranjang setelah checkout
+    localStorage.removeItem("coffee_cart");
     renderCart();
   }
-
-  window.onload = renderCart;
-  setTimeout(() => {
-    if (typeof renderCart === "function") {
-      renderCart();
-    }
-  }, 100);
 </script>
