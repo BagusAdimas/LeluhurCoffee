@@ -296,9 +296,7 @@
   <h1 class="cart-title">🛒 Keranjang Belanja Anda</h1>
 
   <div class="cart-container">
-    <div class="cart-items-wrapper" id="cart-items-container">
-      <p style="text-align: center; color: #ccc">Memuat keranjang...</p>
-    </div>
+    <div class="cart-items-wrapper" id="cart-items-container"></div>
 
     <div class="cart-summary">
       <h3>Ringkasan Belanja</h3>
@@ -419,7 +417,7 @@
               <div class="item-details">
                 <h3>${item.name}</h3>
                 <p class="item-price">
-                  ${item.price} x ${item.quantity} = 
+                  ${item.price} x ${item.quantity} =
                   <span style="color:white;">Rp ${itemTotal.toLocaleString(
                     "id-ID"
                   )}</span>
@@ -474,4 +472,13 @@
     localStorage.removeItem("coffee_cart");
     renderCart();
   }
+
+  window.addEventListener("hashchange", () => {
+    setTimeout(renderCart, 100);
+  });
+
+  window.onload = () => {
+    updateCartCount();
+    renderCart();
+  };
 </script>

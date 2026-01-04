@@ -10,13 +10,7 @@ document.addEventListener("click", function (e) {
 });
 
 const searchForm = document.querySelector("#hamburger-menu");
-document.addEventListener("click", function (e) {
-  if (!hamburger.contains(e.target) && !navbarNav.contains(e.target)) {
-    navbarNav.classList.remove("active");
-  }
-});
 
-// Database menu
 const menuData = {
   cold: [
     {
@@ -206,20 +200,15 @@ const menuData = {
   ],
 };
 
-// Fungsi untuk menampilkan detail kategori atau hasil pencarian
 window.showDetail = function (category, query = null) {
   const mainSection = document.getElementById("main-menu-selection");
   const detailSection = document.getElementById("menu-detail-container");
   const detailList = document.getElementById("detail-list");
   const detailTitle = document.getElementById("detail-title");
-
   if (!mainSection || !detailSection || !detailList || !detailTitle) return;
-
   mainSection.style.display = "none";
   detailSection.style.display = "block";
-
   let items = menuData[category] || [];
-
   if (query) {
     items = items.filter((item) =>
       item.name.toLowerCase().includes(query.toLowerCase())
@@ -228,206 +217,249 @@ window.showDetail = function (category, query = null) {
   } else {
     detailTitle.innerText = category.toUpperCase() + " MENU";
   }
-
-  if (items.length === 0) {
-    detailList.innerHTML = `
-        <div class="no-results">
-          <h3>Tidak Ada Hasil</h3>
-          <p>Menu "${query}" tidak ditemukan. Silakan coba kata kunci lain.</p>
-        </div>
-      `;
-    return;
-  }
-
   detailList.innerHTML = items
-    .map(
-      (item) => `
-      <div class="cold-menu" style="margin-bottom: 25px; cursor: default;">
-        <img src="${item.img || "../img/header-bg.jpg"}" class="menu-img" 
-             onerror="this.src='../img/header-bg.jpg'" />
-        <div class="menu-info">
-          <h2>${item.name}</h2>
-          <p>${item.desc || "Nikmati kelezatan menu pilihan kami."}</p>
-          <p class="price" style="margin-top: 10px; font-size: 1.2rem;">${
-            item.price
-          }</p>
-        </div>
-      </div>
-    `
-    )
+    .map((item, index) => {
+      return `
+          <div class="menu-item-card">
+            <img src="${
+              item.img || "../img/header-bg.jpg"
+            }" onerror="this.src='../img/header-bg.jpg'" alt="${item.name}" />
+            <div class="card-content">
+              <h3>${item.name}</h3>
+              <p>${item.desc || "Nikmati kelezatan menu pilihan kami."}</p>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
+                <div class="price">${item.price}</div>
+                <button class="add-to-cart-btn" onclick="addToCartFromButton(${index}, '${category}')">🛒 Tambah</button>
+              </div>
+            </div>
+          </div>`;
+    })
     .join("");
-
   window.scrollTo(0, 0);
 };
 
-window.hideDetail = function () {
-  const mainSection = document.getElementById("main-menu-selection");
-  const detailSection = document.getElementById("menu-detail-container");
+function addToCartFromButton(index, category) {
+  const item = menuData[category][index];
+  addToCart(item);
+}
 
-  if (mainSection && detailSection) {
-    detailSection.style.display = "none";
-    mainSection.style.display = "flex";
-    window.history.replaceState({}, document.title, "#/menu");
-    window.scrollTo(0, 0);
+function hideDetail() {
+  document.getElementById("menu-detail-container").style.display = "none";
+  document.getElementById("main-menu-selection").style.display = "flex";
+  window.location.hash = "#/menu";
+}
+
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem("coffee_cart")) || [];
+  const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
+  const badge = document.getElementById("cart-count");
+  if (badge) badge.innerText = totalItems;
+}
+
+function addToCart(item) {
+  let cart = getCart();
+  const idx = cart.findIndex((i) => i.name === item.name);
+  if (idx !== -1) cart[idx].quantity += 1;
+  else cart.push({ ...item, quantity: 1 });
+  saveCart(cart);
+  updateCartCount();
+  showToast(`${item.name} ditambah!`);
+}
+
+function changeQty(index, delta) {
+  let cart = getCart();
+  cart[index].quantity = (cart[index].quantity || 1) + delta;
+  if (cart[index].quantity < 1) cart[index].quantity = 1;
+  saveCart(cart);
+  renderCart();
+  updateCartCount();
+}
+
+function showToast(message) {
+  const existingToast = document.querySelector(".toast");
+  if (existingToast) existingToast.remove();
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.innerHTML = `✓ ${message}`;
+  document.body.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    toast.style.transform = "translateX(400px)";
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
+window.onload = function () {
+  const hash = window.location.hash;
+  if (hash.includes("?search=")) {
+    const searchQuery = decodeURIComponent(hash.split("?search=")[1]);
+    showDetail("cold", searchQuery);
+  }
+  updateCartCount();
+  if (document.getElementById("cart-items-container")) {
+    renderCart();
   }
 };
 
-// Fungsi untuk cek parameter search dari URL
+function getCart() {
+  return JSON.parse(localStorage.getItem("coffee_cart")) || [];
+}
+
+function saveCart(cart) {
+  localStorage.setItem("coffee_cart", JSON.stringify(cart));
+}
+
+function increaseQuantity(index) {
+  let cart = getCart();
+  cart[index].quantity += 1;
+  saveCart(cart);
+  renderCart();
+  updateCartCount();
+}
+
+function decreaseQuantity(index) {
+  let cart = getCart();
+  if (cart[index].quantity > 1) {
+    cart[index].quantity -= 1;
+    saveCart(cart);
+    renderCart();
+    updateCartCount();
+  }
+}
+
+function removeFromCart(index) {
+  let cart = getCart();
+  cart.splice(index, 1);
+  saveCart(cart);
+  renderCart();
+  updateCartCount();
+}
+
+function renderCart() {
+  const container = document.getElementById("cart-items-container");
+  if (!container) return;
+
+  const cart = getCart();
+  if (cart.length === 0) {
+    container.innerHTML = `
+    <div class="empty-cart">
+      <i data-feather="shopping-cart" style="width: 48px; height: 48px; opacity: 0.5; margin-bottom: 1rem;"></i>
+      <p>Keranjang belanja Anda masih kosong</p>
+      <a href="#/menu" class="btn-back-menu">Mulai Belanja</a>
+    </div>`;
+
+    ["total-items", "subtotal-amount", "tax-amount", "final-total"].forEach(
+      (id) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = id === "total-items" ? "0" : "Rp 0";
+      }
+    );
+
+    if (window.feather) feather.replace();
+    return;
+  }
+
+  let subtotal = 0;
+  let totalQty = 0;
+
+  container.innerHTML = cart
+    .map((item, index) => {
+      const price = parseInt(item.price.replace(/[^0-9]/g, ""));
+      const itemTotal = price * (item.quantity || 1);
+      subtotal += itemTotal;
+      totalQty += item.quantity || 1;
+      return `
+      <div class="cart-item">
+    <div class="cart-item-left">
+      <img src="${item.img}" onerror="this.src='../img/header-bg.jpg'">
+      <div class="item-info">
+        <h3>${item.name}</h3>
+        <p class="item-price-unit">${item.price}</p>
+      </div>
+    </div>
+
+    <div class="item-actions">
+      <div class="quantity-wrapper">
+        <button class="qty-btn minus" onclick="changeQty(${index}, -1)">−</button>
+        <span class="qty-number">${item.quantity}</span>
+        <button class="qty-btn plus" onclick="changeQty(${index}, 1)">+</button>
+      </div>
+      <button class="btn-remove" onclick="removeFromCart(${index})" title="Hapus Item">
+        <i data-feather="trash-2">🗑️</i>
+      </button>
+    </div>
+  </div>`;
+    })
+    .join("");
+
+  const tax = subtotal * 0.1;
+  document.getElementById("total-items").innerText = totalQty;
+  document.getElementById("subtotal-amount").innerText =
+    "Rp " + subtotal.toLocaleString("id-ID");
+  document.getElementById("tax-amount").innerText =
+    "Rp " + Math.round(tax).toLocaleString("id-ID");
+  document.getElementById("final-total").innerText =
+    "Rp " + Math.round(subtotal + tax).toLocaleString("id-ID");
+}
+
+window.addEventListener("hashchange", () => {
+  setTimeout(renderCart, 200);
+});
+
+window.onload = () => {
+  updateCartCount();
+  renderCart();
+};
+
+function checkout() {
+  if (getCart().length === 0) return showToast("Keranjang kosong!");
+  showToast("Pesanan Anda sedang diproses.");
+  localStorage.removeItem("coffee_cart");
+  renderCart();
+  updateCartCount();
+}
+
 function checkSearchParams() {
   const hash = window.location.hash;
+  if (!hash.includes("?")) return;
   const urlParams = new URLSearchParams(hash.split("?")[1]);
   const searchQuery = urlParams.get("search");
 
   if (searchQuery) {
-    console.log("Search query detected:", searchQuery);
-
-    // Cari di semua kategori
     let foundCategory = null;
-    let allResults = [];
-
     for (const cat in menuData) {
       const results = menuData[cat].filter((item) =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
       if (results.length > 0) {
         foundCategory = cat;
-        allResults = allResults.concat(results);
+        break;
       }
     }
-
-    if (foundCategory) {
-      // Tampilkan hasil dari kategori pertama yang ditemukan
-      setTimeout(() => {
-        showDetail(foundCategory, searchQuery);
-      }, 100);
-    } else {
-      // Jika tidak ada hasil, tetap tampilkan dengan pesan kosong
-      setTimeout(() => {
-        showDetail("cold", searchQuery);
-      }, 100);
-    }
+    setTimeout(() => {
+      showDetail(foundCategory || "cold", searchQuery);
+    }, 100);
   }
 }
 
-// Jalankan saat halaman dimuat
 setTimeout(checkSearchParams, 200);
 
-// Listen untuk perubahan hash
 window.addEventListener("hashchange", function () {
   if (window.location.hash.includes("#/menu")) {
     setTimeout(checkSearchParams, 100);
   }
 });
 
-/* =========================================
-   LOGIKA KERANJANG BELANJA (CART SYSTEM)
-   ========================================= */
-
-// 1. Data Dummy (Simulasi data belanjaan)
-let cartData = [
-  {
-    id: 1,
-    name: "Iced Caramel Macchiato",
-    price: 35000,
-    qty: 1,
-    img: "img/Unknown.jpeg",
-  },
-  {
-    id: 2,
-    name: "Croissant",
-    price: 22000,
-    qty: 2,
-    img: "img/hot-beverages.jpg",
-  },
-  {
-    id: 3,
-    name: "Cold Brew",
-    price: 30000,
-    qty: 1,
-    img: "img/Cold Brew.jpeg",
-  },
-];
-
-// 2. Fungsi untuk Menampilkan (Render) Cart ke HTML
-function renderCart() {
-  const container = document.getElementById("cart-items-container");
-  const totalItemsEl = document.getElementById("total-items");
-  const finalTotalEl = document.getElementById("final-total");
-  const taxEl = document.getElementById("tax-amount");
-
-  // Cek apakah elemen ada (karena fungsi ini global, tapi elemen hanya ada di halaman cart)
-  if (!container) return;
-
-  // Jika keranjang kosong
-  if (cartData.length === 0) {
-    container.innerHTML = `
-      <div style="text-align:center; padding: 40px;">
-        <i data-feather="shopping-cart" style="width: 50px; height: 50px; color: #ccc;"></i>
-        <p>Keranjang Anda kosong.</p>
-        <a href="#/menu" style="color: #b6895b; text-decoration: underline;">Belanja Sekarang</a>
-      </div>
-    `;
-    totalItemsEl.innerText = "0";
-    finalTotalEl.innerText = "Rp 0";
-    taxEl.innerText = "Rp 0";
-    if (window.feather) feather.replace();
-    return;
-  }
-
-  // Jika ada isi, buat HTML-nya
-  let html = "";
-  let subtotal = 0;
-  let totalQty = 0;
-
-  cartData.forEach((item, index) => {
-    const itemTotal = item.price * item.qty;
-    subtotal += itemTotal;
-    totalQty += item.qty;
-
-    html += `
-      <div class="cart-item">
-        <img src="${item.img}" alt="${
-      item.name
-    }" onerror="this.src='img/header-bg.jpg'">
-        <div class="item-details">
-          <h3>${item.name}</h3>
-          <p>Jumlah: ${item.qty} x ${formatRupiah(item.price)}</p>
-          <div class="item-price">Total: ${formatRupiah(itemTotal)}</div>
-        </div>
-        <div class="item-actions">
-          <button class="btn-remove" onclick="deleteCartItem(${index})">
-            <i data-feather="trash-2"></i> Hapus
-          </button>
-        </div>
-      </div>
-    `;
-  });
-
-  container.innerHTML = html;
-
-  // Hitung Pajak dan Total
-  const tax = subtotal * 0.1; // Pajak 10%
-  const grandTotal = subtotal + tax;
-
-  // Update Text Ringkasan
-  totalItemsEl.innerText = totalQty + " pcs";
-  taxEl.innerText = formatRupiah(tax);
-  finalTotalEl.innerText = formatRupiah(grandTotal);
-
-  // Render icon trash
-  if (window.feather) feather.replace();
-}
-
-// 3. Fungsi Menghapus Item
 function deleteCartItem(index) {
-  // Konfirmasi penghapusan
   if (confirm("Hapus item ini dari keranjang?")) {
-    cartData.splice(index, 1); // Hapus data dari array
-    renderCart(); // Render ulang tampilan
+    let cart = getCart();
+    cart.splice(index, 1);
+    saveCart(cart);
+    renderCart();
+    updateCartCount();
   }
 }
 
-// 4. Helper: Format Rupiah
 function formatRupiah(angka) {
   return "Rp " + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
