@@ -156,7 +156,7 @@ const menuData = {
       img: "../img/Choco Muffin.jpg",
     },
     {
-      name: "Almond Croissant",
+      name: "AlmondCroissant",
       price: "Rp 25.000",
       desc: "Pastry renyah mentega khas Perancis dengan almond.",
       img: "../img/Almond Croissant.jpg",
@@ -192,7 +192,7 @@ const menuData = {
       img: "../img/Choco Fudge Cake.jpg",
     },
     {
-      name: "Banana Bread",
+      name: "BananaBread",
       price: "Rp 30.000",
       desc: "Roti pisang lembut dengan rasa manis.",
       img: "../img/Banana Bread.jpg",
