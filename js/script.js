@@ -156,10 +156,10 @@ const menuData = {
       img: "../img/Choco Muffin.jpg",
     },
     {
-      name: "AlmondCroissant",
+      name: "Almond Croissant",
       price: "Rp 25.000",
       desc: "Pastry renyah mentega khas Perancis dengan almond.",
-      img: "../img/Almond Croissant.jpg",
+      img: "../img/almondcroissant.jpg",
     },
     {
       name: "Blueberry Muffin",
