@@ -59,7 +59,7 @@ const menuData = {
       name: "Iced Brown Sugar Latte",
       price: "Rp 28.000",
       desc: "Espresso dengan susu dingin dan brown sugar.",
-      img: "img/icedbrownugarlatte.jpg",
+      img: "img/icedbrownsugarlatte.jpg",
     },
     {
       name: "Sea Salt Cloud Chocolate",
@@ -165,7 +165,7 @@ const menuData = {
       name: "Blueberry Muffin",
       price: "Rp 15.000",
       desc: "Muffin blueberry panggang dengan blueberry chips.",
-      img: "img/blueberrymuffin.jpg",
+      img: "img/bluberrymuffin.jpg",
     },
     {
       name: "Choco Danish",
