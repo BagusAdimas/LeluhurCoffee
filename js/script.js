@@ -222,8 +222,8 @@ window.showDetail = function (category, query = null) {
       return `
           <div class="menu-item-card">
             <img src="${
-              item.img || "/img/header-bg.jpg"
-            }" onerror="this.src='/img/header-bg.jpg'" alt="${item.name}" />
+              item.img || "img/header-bg.jpg"
+            }" onerror="this.src='img/header-bg.jpg'" alt="${item.name}" />
             <div class="card-content">
               <h3>${item.name}</h3>
               <p>${item.desc || "Nikmati kelezatan menu pilihan kami."}</p>
